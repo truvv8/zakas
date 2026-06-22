@@ -1,0 +1,36 @@
+<!-- @dsCard group="Foundations" name="Цвета" subtitle="Палитра: кремовый, чернила, коралл" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Цвета — Реестр</title>
+<link rel="stylesheet" href="../_style.css" />
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .swatch { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--paper); }
+  .chip { height: 76px; }
+  .meta { padding: 10px 12px; }
+  .meta b { font-weight: 600; font-size: 13px; }
+  .meta span { display: block; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="label">Foundations</p>
+    <h2 class="h" style="font-size:28px;margin-bottom:24px;">Цвета</h2>
+    <div class="grid">
+      <div class="swatch"><div class="chip" style="background:#f4f1ea"></div><div class="meta"><b>cream</b><span>#F4F1EA</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#fbfaf6"></div><div class="meta"><b>paper</b><span>#FBFAF6</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#ece8dd"></div><div class="meta"><b>oat</b><span>#ECE8DD</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#1a1915"></div><div class="meta"><b>ink</b><span>#1A1915</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#3b3933"></div><div class="meta"><b>ink-soft</b><span>#3B3933</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#62605a"></div><div class="meta"><b>muted</b><span>#62605A</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#d97757"></div><div class="meta"><b>coral</b><span>#D97757</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#c15f3c"></div><div class="meta"><b>coral-deep</b><span>#C15F3C</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#b1502c"></div><div class="meta"><b>coral-ink</b><span>#B1502C</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#e3dfd4"></div><div class="meta"><b>line</b><span>#E3DFD4</span></div></div>
+    </div>
+  </div>
+</body>
+</html>
