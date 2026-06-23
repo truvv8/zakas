@@ -29,10 +29,7 @@ export default function LoginPage() {
     <main className="font-sans text-ink">
       <header className="border-b border-line">
         <div className="mx-auto flex h-[68px] max-w-6xl items-center px-6">
-          <Link href="/" className="flex items-baseline gap-2.5">
-            <span className="font-display text-2xl font-semibold tracking-tight">Реестр</span>
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          </Link>
+          <Link href="/" className="font-display text-2xl tracking-tight">Chevailer</Link>
         </div>
       </header>
 
@@ -41,7 +38,7 @@ export default function LoginPage() {
           <span className="h-px w-6 bg-accent" />
           Частный доступ
         </p>
-        <h1 className="mt-6 font-display text-5xl tracking-tight">Вход в реестр</h1>
+        <h1 className="mt-6 font-display text-5xl tracking-tight">Вход</h1>
         <p className="mt-4 text-muted">
           Введите почту — пришлём ссылку для входа. На один аккаунт — до двух
           устройств.

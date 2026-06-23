@@ -10,11 +10,51 @@
   --color-muted: #786d5d;
   --color-accent: #c0561f;
   --color-accent-deep: #9f4417;
+  --color-brass: #b08a4f;
   --color-line: #ddd4c2;
   --color-line-strong: #c8bda6;
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
+
+  /* Анимации (Tailwind v4 utilities: animate-*) */
+  --animate-acc-down: acc-down 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-acc-up: acc-up 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-fade-in: fade-in 0.3s ease;
+  --animate-slide-in-right: slide-in-right 0.38s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-float-a: float-a 22s ease-in-out infinite;
+  --animate-float-b: float-b 26s ease-in-out infinite;
+  --animate-float-c: float-c 19s ease-in-out infinite;
+}
+
+@keyframes float-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(7%, 9%) scale(1.12); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-9%, 6%) scale(1.08); }
+}
+@keyframes float-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6%, -7%) scale(1.14); }
+}
+
+@keyframes acc-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+@keyframes acc-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
 }
 
 html {
@@ -23,7 +63,9 @@ html {
 }
 
 body {
-  background: var(--color-ivory);
+  /* фон прозрачный, чтобы интерактивный слой (-z-10) был виден;
+     базовый кремовый цвет даёт html */
+  background: transparent;
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -33,6 +75,18 @@ body {
 ::selection {
   background: #e9c9b3;
   color: var(--color-ink);
+}
+
+/* Едва заметное зерно — глубина «печатной» бумаги */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.028;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Анимированное подчёркивание для текстовых ссылок */
@@ -55,45 +109,25 @@ body {
   transform: scaleX(1);
 }
 
-/* Тонкая эластичная анимация появления при загрузке */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.fade {
-  opacity: 0;
-  animation: fade-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  animation-delay: var(--d, 0ms);
-}
-
-/* Раскрытие FAQ */
-details > summary {
-  list-style: none;
-  cursor: pointer;
-}
-details > summary::-webkit-details-marker {
-  display: none;
-}
-details[open] .faq-plus {
-  transform: rotate(45deg);
-}
-.faq-plus {
-  transition: transform 0.3s ease;
+/* Тонкая «золотая» линия-разделитель для акцентов */
+.hairline-brass {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-brass) 55%, transparent),
+    transparent
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fade {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
   html {
     scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
