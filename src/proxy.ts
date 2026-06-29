@@ -26,17 +26,11 @@ export async function proxy(request: NextRequest) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Обновляем сессию (нужно для серверных запросов к Supabase).
+  await supabase.auth.getUser();
 
-  const isProtected = request.nextUrl.pathname.startsWith("/dashboard");
-  if (isProtected && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
-
+  // ВНИМАНИЕ: редирект /dashboard -> /login временно отключён (превью кабинета).
+  // Перед запуском вернуть гейт по оплате.
   return response;
 }
 

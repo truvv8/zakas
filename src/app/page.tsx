@@ -1,177 +1,167 @@
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Reveal, Counter } from "@/components/motion";
-import { MobileNav } from "@/components/MobileNav";
+import { Reveal, Stagger, StaggerItem, Magnetic, Words } from "@/components/motion";
+import { NetworkCanvas } from "@/components/NetworkCanvas";
+import { CustomCursor } from "@/components/CustomCursor";
 import { StickyCTA } from "@/components/StickyCTA";
-import { InteractiveBg } from "@/components/InteractiveBg";
+import { SiteHeader, SiteFooter } from "@/components/SiteChrome";
+import { Ribbon } from "@/components/Ribbon";
 
-const STATS = [
-  { num: 120, suffix: "+", k: "поставщиков" },
-  { num: 7, suffix: "", k: "категорий" },
-  { num: 2, suffix: "", k: "устройства" },
-];
-
-const INDEX = [
-  ["Прямые контакты", "Без посредников и наценок."],
-  ["Еженедельные обновления", "База перепроверяется."],
-  ["Персональная защита", "Водяной знак на контактах."],
-  ["Два устройства", "Телефон и компьютер."],
-];
+const CATEGORIES = ["Кожа", "Фурнитура", "Текстиль", "Упаковка", "Обувь", "Аксессуары", "Логистика"];
 
 const FEATURES = [
-  "Все поставщики Chevailer",
-  "7 категорий: кожа, фурнитура, текстиль…",
-  "Еженедельные обновления",
-  "Персональный водяной знак",
-  "Доступ с двух устройств",
+  { n: "01", t: "Проверено", d: "Образцы, MOQ, сроки, реальность завода. Отчёты и фото с производств." },
+  { n: "02", t: "Прямые контакты", d: "Имя, мессенджер и профиль каждой фабрики. Без посредников и наценок." },
+  { n: "03", t: "Обновления", d: "База пополняется и перепроверяется еженедельно. Неактуальное убираем сами." },
+  { n: "04", t: "Защита", d: "Каждый контакт помечен вашим персональным водяным знаком." },
 ];
+
+// Заглавный «глаз» — тонкая линия, разрядка, заглавные.
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-center gap-4">
+      <span className="h-px w-10 bg-bone/30" />
+      <span className="tk-sm text-[10px] uppercase text-bone/70">{children}</span>
+      <span className="h-px w-10 bg-bone/30" />
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="relative font-sans text-ink">
-      <InteractiveBg />
+    <main className="text-bone">
+      <NetworkCanvas />
+      <CustomCursor />
       <StickyCTA />
-
-      {/* ——— Шапка ——— */}
-      <header className="sticky top-0 z-50 border-b border-line/60 bg-ivory/70 backdrop-blur-md">
-        <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="font-display text-2xl tracking-tight">Chevailer</Link>
-          <nav className="hidden items-center gap-8 text-sm text-ink-soft md:flex">
-            <a href="#index" className="u hover:text-ink">Что входит</a>
-            <a href="#pricing" className="u hover:text-ink">Тариф</a>
-            <Link href="/login" className="u hover:text-ink">Войти</Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Button asChild size="sm" variant="ink" className="hidden md:inline-flex">
-              <Link href="#pricing">Получить доступ</Link>
-            </Button>
-            <MobileNav />
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* ——— Hero ——— */}
-      <section className="relative mx-auto max-w-3xl px-6 pt-28 pb-28 text-center sm:pt-40 sm:pb-36">
-        <Reveal>
-          <h1 className="font-display text-[3.2rem] leading-[1.03] tracking-[-0.015em] text-balance sm:text-[5rem]">
-            Поставщики вне <span className="italic text-accent">открытого доступа</span>
-          </h1>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <p className="mx-auto mt-8 max-w-md text-lg text-muted">
-            Chevailer — закрытый доступ к проверенным фабрикам. Без посредников.
+      <section className="relative mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 text-center">
+        <Reveal><Eyebrow>Закрытый реестр · Алматы · 2026</Eyebrow></Reveal>
+
+        <h1 className="serif mt-10 text-[2.6rem] font-medium uppercase leading-[1.05] tracking-[0.04em] sm:text-[5.2rem]">
+          <Words text="Прямой доступ" />
+          <br />
+          <span className="molten text-[0.96em] normal-case tracking-normal">
+            <Words text="к фабрикам Китая" delay={0.28} />
+          </span>
+        </h1>
+
+        <Reveal delay={0.6}>
+          <p className="mx-auto mt-9 max-w-md text-[14px] leading-relaxed tracking-wide text-muted">
+            Приватная сеть проверенных производителей. Прямые контакты без
+            посредников и наценок — стройте бренд напрямую с заводом.
           </p>
         </Reveal>
-        <Reveal delay={0.22}>
-          <div className="mt-11 flex flex-col items-center justify-center gap-5 sm:flex-row">
-            <Button asChild size="lg">
-              <Link href="#pricing">
-                Получить доступ
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <div className="text-sm text-muted">
-              <span className="font-display text-xl text-ink">55 000 ₸</span> / 30 дней
-            </div>
+
+        <Reveal delay={0.72}>
+          <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
+            <Magnetic strength={0.3}>
+              <Link href="/pricing" className="btn-bronze">Получить доступ</Link>
+            </Magnetic>
+            <Magnetic strength={0.2}>
+              <Link href="#features" className="btn-ghost">Как это работает</Link>
+            </Magnetic>
           </div>
         </Reveal>
-      </section>
 
-      {/* ——— Цифры ——— */}
-      <section className="border-y border-line bg-paper">
-        <div className="mx-auto grid max-w-3xl grid-cols-3 px-6">
-          {STATS.map((s, i) => (
-            <Reveal key={s.k} delay={i * 0.08} className={i > 0 ? "border-l border-line" : ""}>
-              <div className="py-10 text-center">
-                <div className="font-display text-4xl"><Counter value={s.num} suffix={s.suffix} /></div>
-                <div className="mt-1 text-sm text-muted">{s.k}</div>
-              </div>
-            </Reveal>
-          ))}
+        <div className="absolute bottom-8 flex flex-col items-center gap-2 text-dim">
+          <span className="tk-sm text-[9px] uppercase">Листайте</span>
+          <span className="h-8 w-px animate-bob bg-bone/30" />
         </div>
       </section>
 
-      {/* ——— Что входит ——— */}
-      <section id="index" className="mx-auto max-w-6xl px-6 py-24 sm:py-28">
-        <Reveal>
-          <h2 className="font-display text-4xl tracking-tight sm:text-5xl">Что входит</h2>
+      {/* ——— Категории (статично) ——— */}
+      <div className="border-y border-line bg-obsidian/40 py-5 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-3 px-6">
+          {CATEGORIES.map((c, i) => (
+            <span key={c} className="flex items-center gap-7 text-[11px] uppercase tracking-[0.28em] text-muted">
+              {c}
+              {i < CATEGORIES.length - 1 && <span className="h-1 w-1 rounded-full bg-bone/40" />}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ——— Возможности (нумерованный editorial) ——— */}
+      <section id="features" className="mx-auto max-w-6xl px-6 py-28 sm:py-36">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <Eyebrow>Почему Chevailer</Eyebrow>
+          <h2 className="serif mt-7 text-3xl font-medium uppercase leading-tight tracking-[0.03em] sm:text-5xl">
+            Доверие — ваш <span className="molten normal-case tracking-normal">единственный ров</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-md text-[14px] leading-relaxed tracking-wide text-muted">
+            Список соберёт любой. Репутацию верификатора — нет. Вы платите за
+            свежесть и надёжность, а не за данные.
+          </p>
         </Reveal>
-        <div className="mt-12 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
-          {INDEX.map(([t, d], i) => (
-            <Reveal key={t} delay={(i % 2) * 0.08}>
-              <div className="h-full bg-ivory p-8 sm:p-10">
-                <h3 className="font-display text-2xl">{t}</h3>
-                <p className="mt-2 text-muted">{d}</p>
+
+        <Stagger className="mt-20 grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          {FEATURES.map((f) => (
+            <StaggerItem key={f.t}>
+              <div className="group flex h-full flex-col bg-obsidian/70 p-8 backdrop-blur-sm transition-colors hover:bg-panel/80">
+                <span className="serif text-3xl font-normal text-bone/25 transition-colors group-hover:text-bone">{f.n}</span>
+                <h3 className="mt-10 text-[13px] font-medium uppercase tracking-[0.16em]">{f.t}</h3>
+                <p className="mt-3 text-[13px] leading-relaxed text-muted">{f.d}</p>
+              </div>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </section>
+
+      {/* ——— Editorial-полоса с текстурой ——— */}
+      <section id="editorial" className="relative border-y border-line">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Плейсхолдер-текстура (ч/б, абстрактная). Замените на свои кадры цехов/образцов. */}
+          <div className="relative min-h-[58vw] overflow-hidden lg:min-h-[40rem]" aria-hidden>
+            <div className="absolute inset-0" style={{ background: "linear-gradient(155deg, #f0f0f0 0%, #cfcfcf 46%, #8c8c8c 100%)" }} />
+            <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 11px)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(120% 100% at 28% 18%, rgba(255,255,255,0.55), transparent 56%)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(90% 80% at 90% 100%, rgba(0,0,0,0.18), transparent 60%)" }} />
+            <span className="absolute bottom-6 left-6 tk-sm text-[10px] uppercase text-bone/35">Образец · ваше фото</span>
+          </div>
+          <div className="flex items-center bg-obsidian/80 px-6 py-20 backdrop-blur-sm sm:px-16">
+            <Reveal className="max-w-md">
+              <Eyebrow>Материя</Eyebrow>
+              <h2 className="serif mt-7 text-3xl font-medium leading-[1.15] tracking-[0.02em] sm:text-[2.8rem]">
+                За каждым контактом — <span className="molten">живое производство</span>
+              </h2>
+              <p className="mt-6 text-[14px] leading-relaxed tracking-wide text-muted">
+                Мы не торгуем строчками таблицы. Каждый завод проходит проверку
+                образцом и фотоотчётом: кожа, фурнитура, строчка, металл.
+                Вы видите фабрику до первого сообщения.
+              </p>
+              <div className="mt-10 flex items-center gap-10">
+                <div>
+                  <div className="serif text-4xl font-medium">200+</div>
+                  <div className="mt-1 tk-sm text-[10px] uppercase text-dim">фабрик в базе</div>
+                </div>
+                <div className="h-12 w-px bg-line" />
+                <div>
+                  <div className="serif text-4xl font-medium">7</div>
+                  <div className="mt-1 tk-sm text-[10px] uppercase text-dim">категорий</div>
+                </div>
               </div>
             </Reveal>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* ——— Тариф ——— */}
-      <section id="pricing" className="border-t border-line bg-paper">
-        <div className="mx-auto max-w-xl px-6 py-24 sm:py-28">
-          <Reveal className="mx-auto mb-10 max-w-md text-center">
-            <h2 className="font-display text-4xl tracking-tight sm:text-5xl">Один доступ. Вся база.</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="border border-line-strong bg-ivory p-2">
-              <div className="relative border border-line p-8 sm:p-12">
-                <span className="pointer-events-none absolute left-0 top-0 h-4 w-4 border-l border-t border-brass" />
-                <span className="pointer-events-none absolute bottom-0 right-0 h-4 w-4 border-b border-r border-brass" />
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-muted">Полный доступ</span>
-                  <span className="bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-accent">
-                    Набор ограничен
-                  </span>
-                </div>
-                <div className="mt-6 font-display text-7xl leading-none tracking-tight">55 000 ₸</div>
-                <p className="mt-3 text-muted">за 30 дней · продлевается</p>
-                <div className="my-8 hairline-brass" />
-                <ul className="space-y-3">
-                  {FEATURES.map((f) => (
-                    <li key={f} className="flex items-start gap-3">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                      <span className="text-ink-soft">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild size="lg" className="mt-9 w-full">
-                  <Link href="/login">
-                    Оформить доступ
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <p className="mt-4 text-center text-[13px] text-muted">Оплата картой · Доступ сразу</p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* ——— Фирменная лента ——— */}
+      <Ribbon />
 
       {/* ——— Финальный CTA ——— */}
-      <section className="relative px-6 py-28 text-center sm:py-36">
-        <Reveal className="mx-auto max-w-2xl">
-          <h2 className="font-display text-5xl leading-tight tracking-tight text-balance sm:text-6xl">
-            Откройте Chevailer сегодня
+      <section className="mx-auto max-w-3xl px-6 py-32 text-center sm:py-40">
+        <Reveal>
+          <h2 className="serif text-4xl font-medium uppercase leading-[1.08] tracking-[0.03em] sm:text-[4.2rem]">
+            Работайте с фабриками <span className="molten normal-case tracking-normal">напрямую</span>
           </h2>
-          <Button asChild size="lg" className="mt-9">
-            <Link href="/login">
-              Получить доступ — 55 000 ₸
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
+          <Magnetic strength={0.25} className="mt-12 inline-block">
+            <Link href="/pricing" className="btn-bronze !px-12 !py-5">Смотреть тариф — 55 000 ₸</Link>
+          </Magnetic>
         </Reveal>
       </section>
 
-      {/* ——— Подвал ——— */}
-      <footer className="border-t border-line bg-paper">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-          <Link href="/" className="font-display text-xl tracking-tight text-ink">Chevailer</Link>
-          <span>© 2026 Chevailer · Алматы</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

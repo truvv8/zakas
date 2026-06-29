@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Manrope } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-// Высококонтрастный «модный дом» сериф для заголовков и цен.
-const display = Playfair_Display({
-  variable: "--font-display",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
+
+// Didone-засечка для couture-заголовков (поддерживает кириллицу)
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
   display: "swap",
 });
 
-// Спокойный гротеск для текста и интерфейса.
-const sans = Manrope({
-  variable: "--font-sans",
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Chevailer — закрытый доступ к проверенным поставщикам",
+  title: "Chevailer — закрытый доступ к проверенным фабрикам",
   description:
-    "Chevailer — закрытая база проверенных производителей. Прямые контакты без посредников. Доступ по подписке.",
+    "Chevailer — приватная сеть проверенных производителей Китая. Прямые контакты без посредников. Доступ по подписке.",
 };
 
 export default function RootLayout({
@@ -29,11 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ru"
-      className={`${display.variable} ${sans.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="ru" className={`${inter.variable} ${playfair.variable} h-full antialiased`}>
+      <body className="grain min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
